@@ -1,0 +1,31 @@
+package com.nadya.produk_service.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nadya.produk_service.model.Produk;
+import com.nadya.produk_service.repository.ProdukRepository;
+
+@Service
+public class ProdukService {
+    @Autowired
+    private ProdukRepository ProdukRepository;
+
+    public List<Produk> getAllProduks(){
+    return ProdukRepository.findAll();
+    }
+
+    public Produk getProdukById(Long id) {
+    return ProdukRepository.findById(id).orElse(null);
+    }
+
+    public Produk createProduk(Produk produk){
+    return ProdukRepository.save(produk);
+    }
+
+    public void deleteProduk (Long id){
+    ProdukRepository.deleteById(id);
+    }
+}
