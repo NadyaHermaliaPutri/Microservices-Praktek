@@ -22,8 +22,8 @@ public class AnggotaController {
     private AnggotaService anggotaService;
 
     @GetMapping
-    public List<Anggota> getAllAnggota() {
-        return anggotaService.getAllAnggota();
+    public List<Anggota> getAllAnggotas() {
+        return anggotaService.getAllAnggotas();
     }
 
     @GetMapping("/{id}")
