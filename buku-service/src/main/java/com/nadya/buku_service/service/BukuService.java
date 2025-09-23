@@ -11,21 +11,21 @@ import com.nadya.buku_service.repository.BukuRepository;
 @Service
 public class BukuService {
     @Autowired
-    private BukuRepository bukuRepository;
+    private BukuRepository BukuRepository;
 
     public List<Buku> getAllBukus(){
-    return bukuRepository.findAll();
+    return BukuRepository.findAll();
     }
 
     public Buku getBukuById(Long id) {
-    return bukuRepository.findById(id).orElse(null);
+    return BukuRepository.findById(id).orElse(null);
     }
 
-    public  Buku createBuku(Buku buku){
-    return bukuRepository.save(buku);
+    public Buku createBuku(Buku buku){
+    return BukuRepository.save(buku);
     }
 
     public void deleteBuku (Long id){
-    bukuRepository.deleteById(id);
+    BukuRepository.deleteById(id);
     }
 }

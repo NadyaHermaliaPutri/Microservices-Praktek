@@ -22,7 +22,7 @@ public class BukuController {
     private BukuService bukuService;
 
     @GetMapping
-    public List<Buku> getAllBuku() {
+    public List<Buku> getAllBukus() {
         return bukuService.getAllBukus();
     }
 
