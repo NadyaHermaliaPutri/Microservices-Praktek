@@ -1,5 +1,6 @@
 package com.nadya.peminjaman_service.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,93 +13,50 @@ import com.nadya.peminjaman_service.model.Peminjaman;
 import com.nadya.peminjaman_service.repository.PeminjamanRepository;
 import com.nadya.peminjaman_service.vo.Anggota;
 import com.nadya.peminjaman_service.vo.Buku;
-import com.nadya.peminjaman_service.vo.Pengembalian;
 import com.nadya.peminjaman_service.vo.ResponseTemplate;
 
 
 @Service
 public class PeminjamanService {
     @Autowired
-    private DiscoveryClient discoveryClient;
-    
-    @Autowired
-    private PeminjamanRepository peminjamanRepository;
+    private PeminjamanRepository PeminjamanRepository;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public Peminjaman createPeminjaman(Peminjaman peminjaman) {
-        return peminjamanRepository.save(peminjaman);
-    }
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
-    public List<Peminjaman> getAllPeminjamans() {
-        return peminjamanRepository.findAll();
+    public List<Peminjaman> getAllPeminjamans(){
+    return PeminjamanRepository.findAll();
     }
 
     public Peminjaman getPeminjamanById(Long id) {
-        return peminjamanRepository.findById(id).orElse(null);
-    }
-    
-    public ResponseTemplate getPeminjamanWithDetailsById(Long id) {
-        Peminjaman peminjaman = peminjamanRepository.findById(id).orElse(null);
-        if (peminjaman == null) {
-            return null; 
-        }
-    
-        // --- Anggota ---
-        List<ServiceInstance> anggotaInstances = discoveryClient.getInstances("anggota-service");
-        if (anggotaInstances.isEmpty()) {
-            throw new IllegalStateException("Service ANGGOTA tidak tersedia");
-        }
-        Anggota anggota = restTemplate.getForObject(
-                anggotaInstances.get(0).getUri() + "/api/anggota/" + peminjaman.getAnggotaId(),
-                Anggota.class);
-    
-        // --- Buku ---
-        List<ServiceInstance> bukuInstances = discoveryClient.getInstances("buku-service");
-        if (bukuInstances.isEmpty()) {
-            throw new IllegalStateException("Service BUKU tidak tersedia");
-        }
-        Buku buku = restTemplate.getForObject(
-                bukuInstances.get(0).getUri() + "/api/buku/" + peminjaman.getBukuId(),
-                Buku.class);
-    
-        // --- Pengembalian ---
-        Pengembalian pengembalian = null;
-        if (peminjaman.getPengembalianId() != null) {
-            List<ServiceInstance> pengembalianInstances = discoveryClient.getInstances("pengembalian-service");
-            if (pengembalianInstances.isEmpty()) {
-                throw new IllegalStateException("Service PENGEMBALIAN tidak tersedia");
-            }
-            pengembalian = restTemplate.getForObject(
-                    pengembalianInstances.get(0).getUri() + "/api/pengembalian/" + peminjaman.getPengembalianId(),
-                    Pengembalian.class);
-        }
-    
-        ResponseTemplate response = new ResponseTemplate();
-        response.setPeminjaman(peminjaman);
-        response.setAnggota(anggota);
-        response.setBuku(buku);
-        response.setPengembalian(pengembalian);
-    
-        return response;
+    return PeminjamanRepository.findById(id).orElse(null);
     }
 
-    public void deletePeminjaman(Long id) {
-        peminjamanRepository.deleteById(id);
-    }
-    
-    
-    public Pengembalian createPengembalian(Pengembalian pengembalian) {
-        ServiceInstance pengembalianInstance = discoveryClient.getInstances("pengembalian-service").get(0);
-        return restTemplate.postForObject(pengembalianInstance.getUri() + "/api/pengembalian", 
-                                          pengembalian, Pengembalian.class);
+    public Peminjaman createPeminjaman(Peminjaman peminjaman){
+    return PeminjamanRepository.save(peminjaman);
     }
 
-    
-    public Pengembalian getPengembalianById(Long id) {
-        ServiceInstance pengembalianInstance = discoveryClient.getInstances("pengembalian-service").get(0);
-        return restTemplate.getForObject(pengembalianInstance.getUri() + "/api/pengembalian/" + id, 
-                                          Pengembalian.class);
+    public List<ResponseTemplate> getPeminjamanWithBukuById(Long id){
+        List<ResponseTemplate> responseList = new ArrayList<>();
+        Peminjaman peminjaman = getPeminjamanById(id);
+        ServiceInstance serviceInstance = discoveryClient.getInstances("buku-service").get(0);
+        Buku buku = restTemplate.getForObject(serviceInstance.getUri() + "/api/buku/"
+                + peminjaman.getBukuId(), Buku.class);
+                serviceInstance = discoveryClient.getInstances("anggota-service").get(0);
+        Anggota anggota = restTemplate.getForObject(serviceInstance.getUri() + "/api/anggota/"
+                + peminjaman.getAnggotaId(), Anggota.class);
+        ResponseTemplate vo = new ResponseTemplate();
+        vo.setPeminjaman(peminjaman);
+        vo.setBuku(buku);
+        vo.setAnggota(anggota);
+        responseList.add(vo);
+        return responseList;
+    }
+
+    public void deletePeminjaman (Long id){
+    PeminjamanRepository.deleteById(id);
     }
 }

@@ -7,7 +7,9 @@ public class Buku {
     private String penerbit;
     private String tahun_terbit;
 
-    
+    public Buku(){
+
+    }
 
     public Buku(Long id, String judul, String pengarang, String penerbit, String tahun_terbit) {
         this.id = id;
@@ -17,23 +19,43 @@ public class Buku {
         this.tahun_terbit = tahun_terbit;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getJudul() {
+        return judul;
     }
 
     public void setJudul(String judul) {
         this.judul = judul;
     }
 
+    public String getPengarang() {
+        return pengarang;
+    }
+
     public void setPengarang(String pengarang) {
         this.pengarang = pengarang;
+    }
+
+    public String getPenerbit() {
+        return penerbit;
     }
 
     public void setPenerbit(String penerbit) {
         this.penerbit = penerbit;
     }
-    public void setTahun(String tahun_terbit) {
+
+    public String getTahun_terbit() {
+        return tahun_terbit;
+    }
+
+    public void setTahun_terbit(String tahun_terbit) {
         this.tahun_terbit = tahun_terbit;
     }
 
@@ -41,25 +63,5 @@ public class Buku {
     public String toString() {
         // TODO Auto-generated method stub
         return super.toString();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getJudul() {
-        return judul;
-    }
-
-    public String getPengarang() {
-        return pengarang;
-    }
-
-    public String getPenerbit() {
-        return penerbit;
-    }
-
-    public String getTahun() {
-        return tahun_terbit;
     }
 }

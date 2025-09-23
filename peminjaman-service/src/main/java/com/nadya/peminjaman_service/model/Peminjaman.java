@@ -1,5 +1,7 @@
 package com.nadya.peminjaman_service.model;
 
+import java.sql.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,14 +11,13 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="orders")
+@Table(name = "peminjaman")
 public class Peminjaman {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private long anggotaId;
-    private long bukuId;
-    private String tanggal_pinjam;
-    private String tanggal_kembali;
-    private Long pengembalianId;
+    private Long bukuId;
+    private Long anggotaId;
+    private Date tanggal_pinjam;
+    private Date tanggal_kembali;
 }

@@ -3,55 +3,47 @@ package com.nadya.peminjaman_service.vo;
 import com.nadya.peminjaman_service.model.Peminjaman;
 
 public class ResponseTemplate {
+    Peminjaman peminjaman;
+    Buku buku;
+    Anggota anggota;
 
-    private Peminjaman peminjaman;
-    private Anggota anggota;
-    private Buku buku;
-    private Pengembalian pengembalian;
+    public ResponseTemplate(){
 
-    public ResponseTemplate() {
     }
 
-    public ResponseTemplate(Peminjaman peminjaman, Anggota anggota, Buku buku, Pengembalian pengembalian) {
+    public ResponseTemplate(Peminjaman peminjaman, Buku buku, Anggota anggota) {
         this.peminjaman = peminjaman;
-        this.anggota = anggota;
         this.buku = buku;
-        this.pengembalian = pengembalian;
+        this.anggota = anggota;
     }
-
-    // --- Getters ---
 
     public Peminjaman getPeminjaman() {
         return peminjaman;
     }
 
-    public Anggota getAnggota() {
-        return anggota;
+    public void setPeminjaman(Peminjaman peminjaman) {
+        this.peminjaman = peminjaman;
     }
 
     public Buku getBuku() {
         return buku;
     }
 
-    public Pengembalian getPengembalian() {
-        return pengembalian;
+    public void setBuku(Buku buku) {
+        this.buku = buku;
     }
 
-    // --- Setters ---
-
-    public void setPeminjaman(Peminjaman peminjaman) {
-        this.peminjaman = peminjaman;
+    public Anggota getAnggota() {
+        return anggota;
     }
 
     public void setAnggota(Anggota anggota) {
         this.anggota = anggota;
     }
 
-    public void setBuku(Buku buku) {
-        this.buku = buku;
-    }
-
-    public void setPengembalian(Pengembalian pengembalian) {
-        this.pengembalian = pengembalian;
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
     }
 }
