@@ -13,19 +13,19 @@ spring:
                         - id: peminjaman
                           uri: lb://peminjaman-service
                           predicates: 
-                            - Path=api/peminjaman/**
+                            - Path=/api/peminjaman/**
                         - id: buku
                           uri: lb://buku-service
                           predicates: 
-                            - Path=api/buku/**
+                            - Path=/api/buku/**
                         - id: anggota
                           uri: lb://anggota-service
                           predicates: 
-                            - Path=api/anggota/**
+                            - Path=/api/anggota/**
                         - id: pengembalian
                           uri: lb://pengembalian-service
                           predicates: 
-                            - Path=api/pengembalian/**
+                            - Path=/api/pengembalian/**
                           
                     
 eureka:
