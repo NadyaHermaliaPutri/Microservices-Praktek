@@ -3,8 +3,8 @@ package com.nadya.pengembalian_service.vo;
 import java.time.LocalDate;
 
 public class Peminjaman {
-    private Long id;
-    private Long bukuId;
+    private String id;
+    private String bukuId;
     private Long anggotaId;
     private LocalDate tanggalPeminjaman;
     private LocalDate tanggalPengembalian;
@@ -13,7 +13,7 @@ public class Peminjaman {
 
     }
 
-    public Peminjaman(Long id, Long bukuId, Long anggotaId, LocalDate tanggalPeminjaman,
+    public Peminjaman(String id, String bukuId, Long anggotaId, LocalDate tanggalPeminjaman,
             LocalDate tanggalPengembalian) {
         this.id = id;
         this.bukuId = bukuId;
@@ -22,19 +22,19 @@ public class Peminjaman {
         this.tanggalPengembalian = tanggalPengembalian;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getBukuId() {
+    public String getBukuId() {
         return bukuId;
     }
 
-    public void setBukuId(Long bukuId) {
+    public void setBukuId(String bukuId) {
         this.bukuId = bukuId;
     }
 

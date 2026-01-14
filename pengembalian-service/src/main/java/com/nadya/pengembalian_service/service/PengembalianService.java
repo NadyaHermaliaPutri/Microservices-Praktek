@@ -43,7 +43,7 @@ public class PengembalianService {
     public Pengembalian createPengembalian(Pengembalian pengembalian){
     // Fetch Peminjaman details to get the expected return date
         ServiceInstance peminjamanServiceInstance = discoveryClient.getInstances("peminjaman-service").get(0);
-        Peminjaman peminjaman = restTemplate.getForObject(peminjamanServiceInstance.getUri() + "/api/peminjaman/"
+        Peminjaman peminjaman = restTemplate.getForObject(peminjamanServiceInstance.getUri() + "/api/peminjaman/query/sqlId/"
                 + pengembalian.getPeminjamanId(), Peminjaman.class);
 
         if (peminjaman != null && peminjaman.getTanggalPengembalian() != null) {
@@ -77,7 +77,7 @@ public class PengembalianService {
         }
 
         ServiceInstance peminjamanServiceInstance = discoveryClient.getInstances("peminjaman-service").get(0);
-        Peminjaman peminjaman = restTemplate.getForObject(peminjamanServiceInstance.getUri() + "/api/peminjaman/"
+        Peminjaman peminjaman = restTemplate.getForObject(peminjamanServiceInstance.getUri() + "/api/peminjaman/query/sqlId/"
                 + pengembalian.getPeminjamanId(), Peminjaman.class);
                 ServiceInstance bukuServiceInstance = discoveryClient.getInstances("buku-service").get(0);
         Buku buku = restTemplate.getForObject(bukuServiceInstance.getUri() + "/api/buku/"

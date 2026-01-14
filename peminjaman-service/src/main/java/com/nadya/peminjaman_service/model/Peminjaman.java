@@ -22,4 +22,5 @@ public class Peminjaman {
     private Long anggotaId;
     private LocalDate tanggalPeminjaman;
     private LocalDate tanggalPengembalian;
+    
 }
