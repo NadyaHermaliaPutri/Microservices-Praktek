@@ -132,15 +132,21 @@ kubectl apply -f jenkins-deployment.yaml
 ### b. Akses Jenkins
 Dashboard Jenkins dapat diakses melalui:http://localhost:32000
 
-### - Konfigurasi Pipeline
+### Konfigurasi Pipeline
 Setiap microservice memiliki file Jenkinsfile tersendiri yang digunakan untuk mendefinisikan alur kerja pipeline CI/CD. Tahapan pipeline sebagai berikut:
+
     1. **Initialize**: Pada tahap ini, Jenkins melakukan persiapan lingkungan kerja dengan memastikan bahwa Docker dan kubectl telah tersedia dan dapat digunakan oleh agent Jenkins.
-    2. **Build Maven**: Jenkins menjalankan perintah mvn clean package -DskipTests untuk mengompilasi source code aplikasi menjadi file JAR.
+
+    2. **Build Maven**: Jenkins menjalankan perintah mvn clean package -DskipTests untuk 
+    mengompilasi source code aplikasi menjadi file JAR.
+
     3. **Build Docker Image**: File JAR yang dihasilkan kemudian dibungkus ke dalam sebuah Docker image. Image tersebut diberi tag versi tertentu.
+
     4. **Push Image ke Docker Registry**: Setelah image berhasil dibuat, Jenkins mengunggah image tersebut ke Local Docker Registry yang berjalan pada localhost:5000. Registry ini digunakan sebagai penyimpanan image sebelum dideploy ke Kubernetes.
+
     5. **Deployment dan Rolling Update ke Kubernetes**: Pada tahap akhir, Jenkins memperbarui konfigurasi deployment di Kubernetes agar menggunakan image terbaru. Proses rolling update dilakukan untuk memastikan aplikasi tetap berjalan tanpa downtime, sekaligus memantau status rollout hingga deployment berhasil.
 
-### - Daftar Pipeline
+### Daftar Pipeline
 *   `pipeline-anggotaservice`
 *   `pipeline-bukuservice`
 *   `pipeline-notificationservice`
